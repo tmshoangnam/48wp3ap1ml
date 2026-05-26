@@ -1,0 +1,103 @@
+{
+  "nodes": [
+    {
+      "id": "vpc-simple-id",
+      "kind": "resource",
+      "type": "aws_vpc",
+      "label": "vpc-simple",
+      "position": {
+        "x": 84,
+        "y": 72
+      },
+      "config": {
+        "cidr_block": "10.0.0.0/16",
+        "enable_dns_hostnames": false,
+        "enable_dns_support": false,
+        "tags": {}
+      },
+      "size": {
+        "width": 636,
+        "height": 332
+      },
+      "parentId": "5cb2815c-d224-4b33-82c3-6da783c9966a"
+    },
+    {
+      "id": "subnet-simple-id",
+      "kind": "resource",
+      "type": "aws_subnet",
+      "label": "subnet-public",
+      "position": {
+        "x": 360,
+        "y": 60
+      },
+      "config": {
+        "availability_zone": "us-west-2a",
+        "cidr_block": "10.0.1.0/24",
+        "map_public_ip_on_launch": true,
+        "tags": {}
+      },
+      "size": {
+        "width": 252,
+        "height": 224
+      },
+      "parentId": "vpc-simple-id"
+    },
+    {
+      "id": "ec2-simple-id",
+      "kind": "resource",
+      "type": "aws_instance",
+      "label": "web-server",
+      "position": {
+        "x": 36,
+        "y": 60
+      },
+      "config": {
+        "ami": "amazon_linux_2023",
+        "availability_zone": "us-west-2a",
+        "instance_type": "t3.micro",
+        "key_name": "",
+        "tags": {}
+      },
+      "parentId": "subnet-simple-id"
+    },
+    {
+      "id": "sg-simple-id",
+      "kind": "resource",
+      "type": "aws_security_group",
+      "label": "sg-web",
+      "position": {
+        "x": 36,
+        "y": 120
+      },
+      "config": {
+        "name": "sg_web",
+        "description": "Managed by TerraFlow",
+        "ingress": [],
+        "egress": [],
+        "tags": {}
+      },
+      "parentId": "vpc-simple-id"
+    },
+    {
+      "id": "5cb2815c-d224-4b33-82c3-6da783c9966a",
+      "kind": "group",
+      "groupType": "region",
+      "label": "us-west-2",
+      "position": {
+        "x": 384,
+        "y": 0
+      },
+      "size": {
+        "width": 816,
+        "height": 508
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "8813e7b4-0e2a-46ee-ac50-318f664509b5",
+      "source": "ec2-simple-id",
+      "target": "sg-simple-id"
+    }
+  ]
+}
